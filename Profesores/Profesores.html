@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profesores</title>
+<script>
+ function a() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        hacerXML(xhttp.responseXML);
+    }
+  }
+  xhttp.open("GET", "ListaProfes.xml");
+  xhttp.send();
+}
+function hacerXML(xml){
+    let lista_profes=xml.getElementsByTagName("profesor");
+    for(i=0;i<lista_profes.length;i++){
+        let txtnombres=lista_profes[i].getElementsByTagName("nombre")[0].childNodes[0].nodeValue;//porque se sabe que solo hay un nombre
+        let lista_asignaturas=lista_profes[i].getElementsByTagName("asignatura");
+        let txt=" ";
+        for(a=0;a<lista_asignaturas.length;a++){
+            let txtasignatura=lista_asignaturas[a].childNodes[0].nodeValue;
+            txt=txt+txtasignatura; //Para que no se pierda el valor, y guardarlo
+        }
+        console.log("NOMBRE:"+txtnombres+"  ASIGNATURAS:"+txt);
+    }
+}
+
+
+
+
+</script>
+
+
+</head>
+<body onload="a()">
+    
+</body>
+</html>
